@@ -98,25 +98,15 @@ def search_node_list(root: Node, search_val:int, nodeList: list):
 
 
 
-def minValueNode(node):
+def minValueNode(node: Node):
     current = node
+    prev = None
     while(current.left is not None):
+        prev = current
         current = current.left
+    prev.left = None
     return current
 
-def update_coordinates(node, x_pos, y_pos, is_right_child):
-    if node is None:
-        return
-    
-    if is_right_child:
-        node.x_pos = x_pos + node.x_diff
-    else:
-        node.x_pos = x_pos - node.x_diff
-        
-    node.y_pos = y_pos + node.y_diff
-
-    update_coordinates(node.left, node.x_pos, node.y_pos, False)
-    update_coordinates(node.right, node.x_pos, node.y_pos, True)
 
 
 def defcoords(parent: Node, level: int, root: Node, right: bool):
@@ -164,11 +154,7 @@ def deleteNode(root: Node, key: int) -> Node:
         # Case 3: Node has two children
         else:
             temp = minValueNode(root.right)
-            root.val = temp.val
-            root.right = deleteNode(root.right, temp.val)
-
-            # Update coordinates of nodes in the right subtree
-            update_coordinates(root.right, root.x_pos, root.y_pos, False)
+            root.val = temp.val;
             return root
 
 
