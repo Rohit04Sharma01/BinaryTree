@@ -235,8 +235,9 @@ def drawTreeBubble(root: node):
     if root == None:
         return
     draw_bubble(screen, root.x_pos, root.y_pos, 20, str(root.val), '#808000')
+    pygame.display.flip()
     drawTreeBubble(root.left)
-    draw_bubble(root.right)
+    drawTreeBubble(root.right)
 
 # main event loop
 
