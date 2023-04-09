@@ -104,7 +104,8 @@ def minValueNode(node: Node):
     while(current.left is not None):
         prev = current
         current = current.left
-    prev.left = None
+    if prev:
+        prev.left = None
     return current
 
 
@@ -154,7 +155,7 @@ def deleteNode(root: Node, key: int) -> Node:
         # Case 3: Node has two children
         else:
             temp = minValueNode(root.right)
-            root.val = temp.val;
+            root.val = temp.val
             return root
 
 

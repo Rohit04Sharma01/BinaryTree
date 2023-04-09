@@ -223,6 +223,21 @@ def blinkLeaf(LeafList: list, idx: int):
     pygame.time.delay(700)
     pass
 
+def drawTreeLines(root: node, first_point: tuple):
+    if root == None:
+        return
+    pygame.draw.line(screen, (255, 255, 255), first_point, (root.x_pos, root.y_pos))
+    pygame.display.flip()
+    drawTreeLines(root.left, (root.x_pos, root.y_pos))
+    drawTreeLines(root.right, (root.x_pos, root.y_pos))
+
+def drawTreeBubble(root: node):
+    if root == None:
+        return
+    draw_bubble(screen, root.x_pos, root.y_pos, 20, str(root.val), '#808000')
+    drawTreeBubble(root.left)
+    draw_bubble(root.right)
+
 # main event loop
 
 
@@ -287,6 +302,8 @@ while True:
             if text_input:
                 node.deleteNode(root, int(text_input))
                 clear_result_surface()
+                drawTreeLines(root, (root.x_pos, root.y_pos))
+                drawTreeBubble(root)
         elif event.type == pygame.MOUSEBUTTONDOWN and inorder_button.top_rect.collidepoint(pygame.mouse.get_pos()):
             print('clicked inorder')
             node_list = []
